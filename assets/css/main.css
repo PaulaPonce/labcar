@@ -111,3 +111,25 @@ h3{
 	margin-top: 1em;
 	margin-bottom: 1em;
 }
+
+/* Rate Section */
+#rate{
+	color: white;
+	background-color: #f7b617;
+	padding-top: 2em;
+	padding-bottom: 4em;
+}
+
+#rate .form-control{
+	background-color: #f7b617;
+	border: 1px solid white;
+}
+#rate .form-control::placeholder{
+	color: white;
+}
+
+#rate .btn-default{
+	font-weight: 700;
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
