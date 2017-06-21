@@ -134,6 +134,15 @@ h3{
 	margin-bottom: 1em;
 }
 
+.border-map{
+	border: 1px solid white;
+	padding: 1em;
+}
+.mapa{
+	overflow: visible;
+	height: 400px;
+}
+
 /* Footer */
 #footer{
 	color: white;
