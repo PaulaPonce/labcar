@@ -21,3 +21,28 @@ a:hover{
 	background-color: white;
 	border-color: white;
 }
+
+/* Hero Section */
+#hero{
+	color: white;
+	background-image: url(../img/taxi.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 0 90%;
+	height: 100vh;
+}
+
+.reg-container{
+	background-color: #f7b617;
+	padding: 2em;
+	margin-top: 10em;
+}
+#hero h3{
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+#hero button{
+	font-weight: 700;
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
