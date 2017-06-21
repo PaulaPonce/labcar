@@ -1,5 +1,23 @@
+/*
+Color-lab: #f7b617
+Color gris (footer): #2b2b2b
+*/
+
 *{
 	font-family: 'Raleway', sans-serif;
 	margin: 0;
 	padding: 0;
+}
+
+a{
+	color: #333;
+}
+a:hover{
+	color: #333;
+}
+
+/* Navbar */
+.navbar-default{
+	background-color: white;
+	border-color: white;
 }
