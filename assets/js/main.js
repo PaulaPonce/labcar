@@ -38,4 +38,32 @@ window.addEventListener("load", geoFind);
 	maximumAge: 30000,
 	timeout: 27000
 	};
+
+	//Autocompletado Input
+	var autocompleteOrigen = new google.maps.places.Autocomplete(document.getElementById("origen"));
+	autocompleteOrigen.bindTo("bounds", map);
+	var autocompleteDestino = new google.maps.places.Autocomplete(document.getElementById("destino"));
+	autocompleteDestino.bindTo("bounds", map);
+
+	//Ruta
+	document.getElementById("ruta").addEventListener("click", calcRoute);
+
+	var directionsDisplay = new google.maps.DirectionsRenderer();
+	var directionsService = new google.maps.DirectionsService();
+
+	function calcRoute(){
+		var start = document.getElementById("origen").value;
+		var end = document.getElementById("destino").value;
+		var request = {
+			origin: start,
+			destination: end,
+			travelMode: "DRIVING"
+		};
+		directionsService.route(request, function(result, status){
+			if(status == "OK"){
+				directionsDisplay.setDirections(result);
+			}
+		});
+	}
+	directionsDisplay.setMap(map);
 }
