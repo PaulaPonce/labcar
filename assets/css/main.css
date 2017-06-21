@@ -56,7 +56,7 @@ h3{
 	padding: 0 5em;
 }
 
-#hero button{
+#hero .btn-default{
 	font-weight: 700;
 	margin-top: 2em;
 	margin-bottom: 1em;
@@ -82,4 +82,32 @@ h3{
 .inf-container p{
 	padding-top: 1em;
 	padding-bottom: 1em;
+}
+
+/* Drive Section */
+#drive{
+	color: white;
+	background-image: url(../img/conduce.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 0 60%;
+}
+
+.drive-container{
+	background-color: rgba(3,3,3,.4);
+	padding: 4em 2em 10em 2em;
+}
+
+.drive-container h3{
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+#drive .btn-default{
+	color: white;
+	background-color: #f7b617;
+	border-color: #f7b617;
+	font-weight: 700;
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
