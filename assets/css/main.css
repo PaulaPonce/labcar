@@ -23,6 +23,11 @@ h3{
 	padding-bottom: 1em;
 }
 
+.bold{
+	font-weight: 700;
+	color: #333;
+}
+
 /* Navbar */
 .navbar-default{
 	background-color: white;

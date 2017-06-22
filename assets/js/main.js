@@ -7,9 +7,9 @@ function initMap(){
 		streetViewControl: false
 	});
 
-window.addEventListener("load", geoFind);
 	var latitude, longitude;
-	function geoFind(){
+
+	window.onload = function geoFind(){
 		if(navigator.geolocation){
 			navigator.geolocation.getCurrentPosition(geo_succes, geo_error, geo_options);
 		}
@@ -25,7 +25,7 @@ window.addEventListener("load", geoFind);
 			map: map
 		});
 
-		map.setZoom(10);
+		map.setZoom(15);
 		map.setCenter({lat:latitude, lng:longitude});
 	}
 
@@ -54,6 +54,7 @@ window.addEventListener("load", geoFind);
 	function calcRoute(){
 		var start = document.getElementById("origen").value;
 		var end = document.getElementById("destino").value;
+
 		var request = {
 			origin: start,
 			destination: end,
@@ -64,6 +65,87 @@ window.addEventListener("load", geoFind);
 				directionsDisplay.setDirections(result);
 			}
 		});
+
+		//Distancia
+		var bounds = new google.maps.LatLngBounds;
+		var markersArray = [];
+
+		var destinationIcon;
+		var originIcon;
+
+		var geocoder = new google.maps.Geocoder;
+
+		var service = new google.maps.DistanceMatrixService;
+		service.getDistanceMatrix({
+			origins: [start],
+			destinations: [end],
+			travelMode: 'DRIVING',
+			unitSystem: google.maps.UnitSystem.METRIC,
+			avoidHighways: false,
+			avoidTolls: false
+		}, function(response, status){
+			if(status !== 'OK'){
+				alert('Error was: ' + status);
+			}else{
+				var originList = response.originAddresses;
+				var destinationList = response.destinationAddresses;
+				var outputDiv = document.getElementById('output');
+				outputDiv.innerHTML = '';
+				deleteMarkers(markersArray);
+
+				var showGeocodedAddressOnMap = function(asDestination) {
+					var icon = asDestination ? destinationIcon : originIcon;
+					return function(results, status){
+						if(status === 'OK'){
+							map.fitBounds(bounds.extend(results[0].geometry.location));
+							markersArray.push(new google.maps.Marker({
+								map: map,
+								position: results[0].geometry.location,
+								icon: icon
+							}));
+						}else{
+							alert('Geocode was not successful due to: ' + status);
+						}
+					};
+				};
+
+				for(var i = 0; i < originList.length; i++){
+					var results = response.rows[i].elements;
+					geocoder.geocode({'address': originList[i]}, showGeocodedAddressOnMap(false));
+					for(var j = 0; j < results.length; j++){
+						geocoder.geocode({'address': destinationList[j]}, showGeocodedAddressOnMap(true));
+
+						var pd = document.createElement("p");
+						var pdText = document.createTextNode(results[j].distance.text);
+						pd.appendChild(pdText);
+						outputDiv.appendChild(pd);
+
+						var pt = document.createElement("p");
+						var ptText = document.createTextNode(results[j].duration.text);
+						pt.appendChild(ptText);
+						outputDiv.appendChild(pt);
+
+						var pt = document.createElement("p");
+						var ptText = document.createTextNode("$"+ parseInt(results[j].distance.text) * 300);
+						pt.classList.add("bold");
+						pt.appendChild(ptText);
+						outputDiv.appendChild(pt);
+					}
+				}
+			}
+		});
 	}
 	directionsDisplay.setMap(map);
 }
+
+function deleteMarkers(markersArray) {
+	for(var i = 0; i < markersArray.length; i++){
+		markersArray[i].setMap(null);
+	}
+	markersArray = [];
+}
+
+/*
+var destinationIcon = 'https://chart.googleapis.com/chart?' + 'chst=d_map_pin_letter&chld=O|FF0000|000000';
+var originIcon = 'https://chart.googleapis.com/chart?' + 'chst=d_map_pin_letter&chld=O|FFFF00|000000';
+*/
