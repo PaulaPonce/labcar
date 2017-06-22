@@ -7,14 +7,14 @@ function initMap(){
 		streetViewControl: false
 	});
 
-	var latitude, longitude;
-
 	window.onload = function geoFind(){
 		if(navigator.geolocation){
 			navigator.geolocation.getCurrentPosition(geo_succes, geo_error, geo_options);
 		}
 	}
 
+	var latitude, longitude;
+	
 	var geo_succes = function(position){
 		latitude = position.coords.latitude;
 		longitude = position.coords.longitude;
@@ -25,7 +25,7 @@ function initMap(){
 			map: map
 		});
 
-		map.setZoom(15);
+		map.setZoom(17);
 		map.setCenter({lat:latitude, lng:longitude});
 	}
 

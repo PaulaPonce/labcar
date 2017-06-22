@@ -33,6 +33,9 @@ h3{
 	background-color: white;
 	border-color: white;
 }
+.navbar-brand{
+	padding-left: 5em;
+}
 
 /* Hero Section */
 #hero{
